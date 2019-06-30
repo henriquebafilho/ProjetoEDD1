@@ -1,5 +1,3 @@
-package br.unirio;
-
 public class OrdenacaoTopologica
 {
 	private class Elo
