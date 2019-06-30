@@ -75,12 +75,12 @@ public class OrdenacaoTopologica {
 			
 			Elo A,B;
 			
-			A = new Elo(Integer.parseInt(linhaA[1]), 0, null, null);
-			B = new Elo(Integer.parseInt(linhaA[2]), 0, null, null);
+			A = new Elo(Integer.parseInt(linhaA[0]), 0, null, null);
+			B = new Elo(Integer.parseInt(linhaA[1]), 0, null, null);
 			
 			A.prox = B;
 			A.listaSuc = new EloSuc(B, null);
-			A.contador++;
+			B.contador++;
 			
 		}
 		
