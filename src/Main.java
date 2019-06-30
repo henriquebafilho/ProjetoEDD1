@@ -8,6 +8,8 @@ public class Main
 		
 		ord.realizaLeitura(nomeEntrada);
 
+		System.out.println("KOE PERUANO");
+		
 		if(!ord.executa())
 			System.out.println("O conjunto nao é parcialmente ordenado.");
 		else
