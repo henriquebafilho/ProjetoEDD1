@@ -7,8 +7,6 @@ public class Main
 		String nomeEntrada = "teste.txt";
 		
 		ord.realizaLeitura(nomeEntrada);
-
-		System.out.println("KOE PERUANO");
 		
 		if(!ord.executa())
 			System.out.println("O conjunto nao é parcialmente ordenado.");
