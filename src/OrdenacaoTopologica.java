@@ -62,28 +62,124 @@ public class OrdenacaoTopologica {
 
 	/* Método responsável pela leitura do arquivo de entrada. */
 	public void realizaLeitura(String nomeEntrada) throws IOException {
-		
-		if(this.prim == null) {
-			
-			FileReader entradaFile = new FileReader("src/entrada.txt");
-			
+
+		if (this.prim == null) {
+
+			int x, y;
+
+			FileReader entradaFile = new FileReader("src/" + nomeEntrada);
+
 			BufferedReader lerArq = new BufferedReader(entradaFile);
-			
+
 			String linha = lerArq.readLine().trim();
-			
+
 			String[] linhaA = linha.split("<");
-			
-			Elo A,B;
-			
+
+			Elo A, B;
+
 			A = new Elo(Integer.parseInt(linhaA[0]), 0, null, null);
 			B = new Elo(Integer.parseInt(linhaA[1]), 0, null, null);
-			
+
 			A.prox = B;
-			A.listaSuc = new EloSuc(B, null);
 			B.contador++;
-			
+			A.listaSuc = new EloSuc(B, null);
+
+			this.n = 2;
+
+			this.prim = A;
+
+			while ((linha = lerArq.readLine()) != null) {
+
+				linha = linha.trim();
+
+				linhaA = linha.split("<");
+
+				x = Integer.parseInt(linhaA[0]);
+				y = Integer.parseInt(linhaA[1]);
+
+				Elo p, q;
+
+				int cont = 0;
+				int cont1 = 0;
+				
+				Elo suc = null;
+				
+				for (p = prim; p != null; p = p.prox) {
+
+					if (p.chave == y) {
+						cont++;
+						p.contador++;
+						
+						suc = p;
+					}
+					
+					if (p.prox == null && cont == 0) {
+						p.prox = new Elo(y, 0, null, null);
+						this.n++;
+					}
+					
+					
+				}
+
+				for (p = prim; p != null; p = p.prox) {
+
+					if(p.chave == x) {
+						p = atualizaListaSuc(p,suc);
+						cont1++;
+					}
+					
+					if (p.prox == null && cont1 == 0) {
+						p.prox = new Elo(x, 0, null, null);
+						this.n++;
+
+					}
+
+				}
+
+			}
+
 		}
-		
+
+	}
+
+	private Elo atualizaListaSuc(Elo p, Elo novoSuc) {
+
+		Elo q;
+
+		if (p.listaSuc == null) {
+
+			p.listaSuc = new EloSuc(novoSuc, null);
+		} else {
+			if (p.listaSuc.prox == null && p.listaSuc.id != novoSuc) {
+				p.listaSuc.prox = new EloSuc(novoSuc, null);
+			}
+
+			if (p.listaSuc.id != novoSuc && p.listaSuc.prox != null) {
+
+				EloSuc r;
+
+				int cont = 0;
+
+				for (r = p.listaSuc.prox; r != null; r = r.prox) {
+
+					if (r.id == novoSuc) {
+						cont++;
+					}
+
+					if (cont == 0 && r.prox == null) {
+
+						r.prox = new EloSuc(novoSuc, null);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		q = p;
+		return q;
 	}
 
 	/* Método para impressão do estado atual da estrutura de dados. */
@@ -97,7 +193,7 @@ public class OrdenacaoTopologica {
 
 		return false;
 	}
-	
+
 //	try {
 //		
 //		String[] linhas = new String[12];
@@ -125,6 +221,5 @@ public class OrdenacaoTopologica {
 //		e.printStackTrace();
 //	}
 //	
-	
 
 }
