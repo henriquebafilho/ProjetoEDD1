@@ -99,7 +99,7 @@ public class OrdenacaoTopologica {
 				x = Integer.parseInt(linhaA[0].trim());
 				y = Integer.parseInt(linhaA[1].trim());
 
-				Elo p, q;
+				Elo p;
 
 				int cont = 0;
 				int cont1 = 0;
@@ -140,6 +140,9 @@ public class OrdenacaoTopologica {
 			}
 
 			this.debug();
+			
+			lerArq.close();
+			entradaFile.close();
 
 		}
 
