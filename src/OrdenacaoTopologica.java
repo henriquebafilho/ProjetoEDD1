@@ -33,7 +33,7 @@ public class OrdenacaoTopologica {
 
 	private class EloSuc {
 		/* Aponta para o elo que é sucessor. */
-		public Elo id;
+		public Elo id; 
 
 		/* Aponta para o próximo elemento. */
 		public EloSuc prox;
@@ -67,7 +67,9 @@ public class OrdenacaoTopologica {
 
 			int x, y;
 
-			FileReader entradaFile = new FileReader("src/" + nomeEntrada);
+			String caminho = "src/" + nomeEntrada;
+
+			FileReader entradaFile = new FileReader(caminho);
 
 			BufferedReader lerArq = new BufferedReader(entradaFile);
 
@@ -77,8 +79,8 @@ public class OrdenacaoTopologica {
 
 			Elo A, B;
 
-			A = new Elo(Integer.parseInt(linhaA[0]), 0, null, null);
-			B = new Elo(Integer.parseInt(linhaA[1]), 0, null, null);
+			A = new Elo(Integer.parseInt(linhaA[0].trim()), 0, null, null);
+			B = new Elo(Integer.parseInt(linhaA[1].trim()), 0, null, null);
 
 			A.prox = B;
 			B.contador++;
@@ -94,8 +96,8 @@ public class OrdenacaoTopologica {
 
 				linhaA = linha.split("<");
 
-				x = Integer.parseInt(linhaA[0]);
-				y = Integer.parseInt(linhaA[1]);
+				x = Integer.parseInt(linhaA[0].trim());
+				y = Integer.parseInt(linhaA[1].trim());
 
 				Elo p, q;
 
@@ -136,6 +138,8 @@ public class OrdenacaoTopologica {
 				}
 
 			}
+
+			this.debug();
 
 		}
 
@@ -178,12 +182,37 @@ public class OrdenacaoTopologica {
 		}
 
 		q = p;
+		p = null;
 		return q;
 	}
 
 	/* Método para impressão do estado atual da estrutura de dados. */
 	private void debug() {
-		/* Preencher. */
+		System.out.println("Debug");
+		Elo p;
+		EloSuc r;
+		for (p = this.prim; p != null; p = p.prox) {
+			System.out.print(p.chave + " predecessores: " + p.contador + ", sucessores: ");
+			for (r = p.listaSuc; r != null; r = r.prox) {
+				if (r.prox != null || r != null) {
+					System.out.print(r.id.chave + " -> ");
+				}
+
+				if (r.prox == null) {
+					System.out.print("NULL");
+				}
+
+			}
+
+			if (p.listaSuc == null) {
+				System.out.print("NULL");
+			}
+
+			System.out.println("");
+
+		}
+		r = null;
+		p = null;
 	}
 
 	/* Método responsável por executar o algoritmo. */
