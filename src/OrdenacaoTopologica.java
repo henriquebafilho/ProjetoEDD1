@@ -101,33 +101,32 @@ public class OrdenacaoTopologica {
 
 				int cont = 0;
 				int cont1 = 0;
-				
+
 				Elo suc = null;
-				
+
 				for (p = prim; p != null; p = p.prox) {
 
 					if (p.chave == y) {
 						cont++;
 						p.contador++;
-						
+
 						suc = p;
 					}
-					
+
 					if (p.prox == null && cont == 0) {
 						p.prox = new Elo(y, 0, null, null);
 						this.n++;
 					}
-					
-					
+
 				}
 
 				for (p = prim; p != null; p = p.prox) {
 
-					if(p.chave == x) {
-						p = atualizaListaSuc(p,suc);
+					if (p.chave == x) {
+						p = atualizaListaSuc(p, suc);
 						cont1++;
 					}
-					
+
 					if (p.prox == null && cont1 == 0) {
 						p.prox = new Elo(x, 0, null, null);
 						this.n++;
