@@ -148,37 +148,14 @@ public class OrdenacaoTopologica {
 	private Elo atualizaListaSuc(Elo p, Elo novoSuc) {
 
 		Elo q;
+		EloSuc r;
 
 		if (p.listaSuc == null) {
 
 			p.listaSuc = new EloSuc(novoSuc, null);
 		} else {
-			if (p.listaSuc.prox == null && p.listaSuc.id != novoSuc) {
-				p.listaSuc.prox = new EloSuc(novoSuc, null);
-			}
-
-			if (p.listaSuc.id != novoSuc && p.listaSuc.prox != null) {
-
-				EloSuc r;
-
-				int cont = 0;
-
-				for (r = p.listaSuc.prox; r != null; r = r.prox) {
-
-					if (r.id == novoSuc) {
-						cont++;
-					}
-
-					if (cont == 0 && r.prox == null) {
-
-						r.prox = new EloSuc(novoSuc, null);
-
-					}
-
-				}
-
-			}
-
+			r = p.listaSuc;
+			p.listaSuc = new EloSuc(novoSuc, r);
 		}
 
 		q = p;
