@@ -194,40 +194,73 @@ public class OrdenacaoTopologica {
 		r = null;
 		p = null;
 	}
+	
+	public void remove(int elem)
+	{
+		Elo p;
+		Elo ant = null;
+		
+		for(p = prim; ((p != null) && (p.chave != elem)); p = p.prox)
+			ant = p;
+		
+		if (p == prim)
+			prim = prim.prox;
+		else
+			ant.prox = p.prox;
+
+		p = null;
+		
+	}
 
 	/* Método responsável por executar o algoritmo. */
 	public boolean executa() {
-		/* Preencher. */
-
-		return false;
+		
+		Elo p = prim;
+		Elo q;
+		
+		prim = null;
+		
+		while(p!= null) {
+			
+			q = p;
+			p = q.prox;
+			
+			if(q.contador == 0) {
+				q.prox = prim;
+				prim = q;
+			}
+		}
+		
+		Elo r;
+		EloSuc s;
+		
+		System.out.println(" ");
+		System.out.println("Ordenacao topologica");
+		
+		for(r = prim; r!=null; r = r.prox) {
+			
+			System.out.print(r.chave+" ");
+			n--;
+			for(s = r.listaSuc; s!=null; s = s.prox) {
+				s.id.contador--;
+				if(s.id.contador == 0) {
+					p = r.prox;
+					r.prox = s.id;
+					r.prox.prox = p;
+				}
+				r.listaSuc = s.prox;
+			}
+			this.remove(r.chave);			
+		}
+		
+		System.out.println(" ");
+		System.out.println(" ");
+		
+		if(this.n == 0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
-
-//	try {
-//		
-//		String[] linhas = new String[12];
-//		
-//		FileReader entradaFile = new FileReader("src/entrada.txt");
-//		
-//		BufferedReader lerArq = new BufferedReader(entradaFile);
-//		
-//		for(int i = 0 ; i<12; i++) {
-//			
-//			linhas[i] = lerArq.readLine();
-//			
-//		}
-//		
-//		int cont = 0;
-//		
-//		for(int i = 0; i<12; i++) {
-//			
-//			System.out.println(linhas[i]);
-//		}
-//		
-//				
-//	} catch (FileNotFoundException e) {
-//		
-//		e.printStackTrace();
-//	}
-//	
 
 }

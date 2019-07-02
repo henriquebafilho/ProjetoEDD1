@@ -15,11 +15,11 @@ public class Main
 		
 		ord.realizaLeitura(nomeEntrada);
 		
-//		if(!ord.executa())
-//			System.out.println("O conjunto nao é parcialmente ordenado.");
-//		else
-//			System.out.println("O conjunto é parcialmente ordenado.");
-		
+		if(!ord.executa())
+			System.out.println("O conjunto nao é parcialmente ordenado.");
+		else
+			System.out.println("O conjunto é parcialmente ordenado.");
+	
 
 		
 		
