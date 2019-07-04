@@ -116,7 +116,7 @@ public class OrdenacaoTopologica {
 
 					if (p.prox == null) {
 						p.prox = new Elo(y, 0, null, null);
-						this.n++;
+						n++;
 					}
 
 				}
@@ -131,7 +131,7 @@ public class OrdenacaoTopologica {
 
 					if (p.prox == null) {
 						p.prox = new Elo(x, 0, null, null);
-						this.n++;
+						n++;
 
 					}
 
