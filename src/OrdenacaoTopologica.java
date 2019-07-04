@@ -63,6 +63,8 @@ public class OrdenacaoTopologica {
 	/* Método responsável pela leitura do arquivo de entrada. */
 	public void realizaLeitura(String nomeEntrada) throws IOException {
 
+		//O(2nm)
+		
 		if (this.prim == null) {
 
 			int x, y;
@@ -73,7 +75,7 @@ public class OrdenacaoTopologica {
 
 			BufferedReader lerArq = new BufferedReader(entradaFile);
 
-			String linha = lerArq.readLine().trim();
+			String linha = lerArq.readLine().trim(); 
 
 			String[] linhaA = linha.split("<");
 
@@ -113,6 +115,7 @@ public class OrdenacaoTopologica {
 						p.contador++;
 
 						suc = p;
+						break;
 					}
 
 					if (p.prox == null && cont == 0) {
@@ -122,11 +125,13 @@ public class OrdenacaoTopologica {
 
 				}
 
+
 				for (p = prim; p != null; p = p.prox) {
 
 					if (p.chave == x) {
-						p = atualizaListaSuc(p, suc);
+						atualizaListaSuc(p, suc);
 						cont1++;
+						break;
 					}
 
 					if (p.prox == null && cont1 == 0) {
@@ -150,9 +155,9 @@ public class OrdenacaoTopologica {
 
 	}
 
-	private Elo atualizaListaSuc(Elo p, Elo novoSuc) {
+	//O(1)
+	private void atualizaListaSuc(Elo p, Elo novoSuc) {
 
-		Elo q;
 		EloSuc r;
 
 		if (p.listaSuc == null) {
@@ -163,11 +168,9 @@ public class OrdenacaoTopologica {
 			p.listaSuc = new EloSuc(novoSuc, r);
 		}
 
-		q = p;
-		p = null;
-		return q;
 	}
-
+	
+	//O(nm)
 	/* Método para impressão do estado atual da estrutura de dados. */
 	private void debug() {
 		System.out.println("Debug");
@@ -197,23 +200,7 @@ public class OrdenacaoTopologica {
 		p = null;
 	}
 	
-	public void remove(int chave)
-	{
-		Elo p;
-		Elo ant = null;
-		
-		for(p = prim; ((p != null) && (p.chave != chave)); p = p.prox)
-			ant = p;
-		
-		if (p == prim)
-			prim = prim.prox;
-		else
-			ant.prox = p.prox;
-
-		p = null;
-		
-	}
-
+	//O(2nm)
 	/* Método responsável por executar o algoritmo. */
 	public boolean executa() {
 		
@@ -242,7 +229,6 @@ public class OrdenacaoTopologica {
 		for(r = prim; r!=null; r = r.prox) {
 			
 			System.out.print(r.chave+" ");
-			n--;
 			for(s = r.listaSuc; s!=null; s = s.prox) {
 				s.id.contador--;
 				if(s.id.contador == 0) {
@@ -252,7 +238,8 @@ public class OrdenacaoTopologica {
 				}
 				r.listaSuc = s.prox;
 			}
-			this.remove(r.chave);			
+			prim = prim.prox;
+			n--;			
 		}
 		
 		System.out.println(" ");
@@ -263,6 +250,7 @@ public class OrdenacaoTopologica {
 		}else {
 			return false;
 		}
+		
 	}
 
 }
