@@ -79,18 +79,18 @@ public class OrdenacaoTopologica {
 
 			String[] linhaA = linha.split("<");
 
-			Elo A, B;
+			Elo X, Y;
 
-			A = new Elo(Integer.parseInt(linhaA[0].trim()), 0, null, null);
-			B = new Elo(Integer.parseInt(linhaA[1].trim()), 0, null, null);
+			X = new Elo(Integer.parseInt(linhaA[0].trim()), 0, null, null);
+			Y = new Elo(Integer.parseInt(linhaA[1].trim()), 0, null, null);
 
-			A.prox = B;
-			B.contador++;
-			A.listaSuc = new EloSuc(B, null);
+			X.prox = Y;
+			Y.contador++;
+			X.listaSuc = new EloSuc(Y, null);
 
 			this.n = 2;
 
-			this.prim = A;
+			this.prim = X;
 
 			while ((linha = lerArq.readLine()) != null) {
 
@@ -103,22 +103,18 @@ public class OrdenacaoTopologica {
 
 				Elo p;
 
-				int cont = 0;
-				int cont1 = 0;
-
 				Elo suc = null;
 
 				for (p = prim; p != null; p = p.prox) {
 
 					if (p.chave == y) {
-						cont++;
 						p.contador++;
 
 						suc = p;
 						break;
 					}
 
-					if (p.prox == null && cont == 0) {
+					if (p.prox == null) {
 						p.prox = new Elo(y, 0, null, null);
 						this.n++;
 					}
@@ -130,11 +126,10 @@ public class OrdenacaoTopologica {
 
 					if (p.chave == x) {
 						atualizaListaSuc(p, suc);
-						cont1++;
 						break;
 					}
 
-					if (p.prox == null && cont1 == 0) {
+					if (p.prox == null) {
 						p.prox = new Elo(x, 0, null, null);
 						this.n++;
 
@@ -148,8 +143,8 @@ public class OrdenacaoTopologica {
 			
 			lerArq.close();
 			entradaFile.close();
-			A = null;
-			B = null;
+			X = null;
+			Y = null;
 
 		}
 
