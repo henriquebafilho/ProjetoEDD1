@@ -143,6 +143,8 @@ public class OrdenacaoTopologica {
 			
 			lerArq.close();
 			entradaFile.close();
+			A = null;
+			B = null;
 
 		}
 
@@ -195,12 +197,12 @@ public class OrdenacaoTopologica {
 		p = null;
 	}
 	
-	public void remove(int elem)
+	public void remove(int chave)
 	{
 		Elo p;
 		Elo ant = null;
 		
-		for(p = prim; ((p != null) && (p.chave != elem)); p = p.prox)
+		for(p = prim; ((p != null) && (p.chave != chave)); p = p.prox)
 			ant = p;
 		
 		if (p == prim)
